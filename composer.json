@@ -9,7 +9,7 @@
 	],
 	"autoload" : {
 		"psr-4" : {
-			"keeko\\account-app\\" : "src/"
+			"keeko\\application\\account\\" : "src"
 		}
 	},
 	"require" : {
@@ -18,7 +18,8 @@
 		"fxp/composer-asset-plugin" : "~1.0",
 		"puli/repository" : "^1.0@beta",
 		"bower-asset/bootstrap" : "~3",
-		"bower-asset/font-awesome" : "~4"
+		"bower-asset/font-awesome" : "~4",
+		"keeko/user": "dev-master"
 	},
 	"require-dev" : {
 		"keeko/framework" : "dev-master",
