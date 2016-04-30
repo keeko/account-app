@@ -5,6 +5,7 @@ use keeko\framework\foundation\AbstractApplication;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use keeko\framework\exceptions\PermissionDeniedException;
 
 /**
  * Keeko Account-app
@@ -19,26 +20,29 @@ class AccountApplication extends AbstractApplication {
 	 * @param string $path
 	 */
 	public function run(Request $request) {
-// 		$prefs = $this->service->getPreferenceLoader()->getSystemPreferences();
-		
 		$kernel = $this->getServiceContainer()->getKernel();
-		$user = $this->getServiceContainer()->getModuleManager()->load('keeko/user');
-		$this->getDestinationPath();
+		$module = $this->getServiceContainer()->getModuleManager()->load('keeko/account');
+
+		$widget = $module->loadAction('account-widget', 'html');
+		$widget = $kernel->handle($widget, $request);
 		
-		$userWidget = $user->loadAction('user-widget', 'html');
-		$userWidget = $kernel->handle($userWidget, $request);
-		
-		$account = $user->loadAction('account', 'html');
-		$account = $kernel->handle($account, $request);
-		
-		if ($account instanceof RedirectResponse) {
-			return $account;
+		try {
+			$account = $module->loadAction('account', 'html');
+			$account = $kernel->handle($account, $request);
+			
+			if ($account instanceof RedirectResponse) {
+				return $account;
+			}
+			
+			$main = $account->getContent();
+		} catch (PermissionDeniedException $e) {
+			$main = 'Permission Denied';
 		}
 		
 		$response = new Response();
 		$response->setContent($this->render('/keeko/account-app/templates/main.twig', [
-			'user_widget' => $userWidget->getContent(),
-			'main' => $account->getContent(),
+			'account_widget' => $widget->getContent(),
+			'main' => $main,
 		]));
 
 		return $response;
