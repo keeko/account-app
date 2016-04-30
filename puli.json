@@ -74,6 +74,11 @@
             "installer": "composer",
             "env": "dev"
         },
+        "keeko/account": {
+            "install-path": "vendor/keeko/account",
+            "installer": "composer",
+            "env": "dev"
+        },
         "keeko/composer-installer": {
             "install-path": "vendor/keeko/composer-installer",
             "installer": "composer"
@@ -87,10 +92,6 @@
             "install-path": "vendor/keeko/framework",
             "installer": "composer",
             "env": "dev"
-        },
-        "keeko/user": {
-            "install-path": "vendor/keeko/user",
-            "installer": "composer"
         },
         "monolog/monolog": {
             "install-path": "vendor/monolog/monolog",
