@@ -191,6 +191,11 @@
             "installer": "composer",
             "env": "dev"
         },
+        "swiftmailer/swiftmailer": {
+            "install-path": "vendor/swiftmailer/swiftmailer",
+            "installer": "composer",
+            "env": "dev"
+        },
         "symfony/config": {
             "install-path": "vendor/symfony/config",
             "installer": "composer",
